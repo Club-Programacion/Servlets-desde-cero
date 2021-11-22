@@ -1,26 +1,25 @@
-package es.cxrlosmx.servlets;
+package es.cxrlosmx.MVC.Servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** 
- * Servlet implementation class PrimerServlet
+/**
+ * Servlet implementation class ControladorServlet
  */
-@WebServlet("/PrimerServlet")
-public class PrimerServlet extends HttpServlet {
+@WebServlet("/ControladorServlet")
+public class ControladorServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PrimerServlet() {
+    public ControladorServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,24 +28,21 @@ public class PrimerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Especificamos el formato de respuesta
-		PrintWriter salida=response.getWriter();
+		String[]productos= {"Destornillador","Taladro","Tornillo"};
+		//Adjuntamos los datos 
+		request.setAttribute("lista_productos", productos);
+		//Comunicamos con el archivo JSP para que se encarge del mensaje de respuesta
+		RequestDispatcher miDispatcher=request.getRequestDispatcher("/VistaJSP.jsp");
 		
-		//Generar Respuesta de la opeticiòn
-		salida.println("<html><body>");
-		salida.println("<h1 style='text-align:center'>Prueba Servlet</h1>");
-		
-		salida.println("");
-		salida.println("Fecha y hora actual:"+new Date());
-		salida.println("</body></html>");
+		//Enviamos
+		miDispatcher.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
 	}
 
 }
